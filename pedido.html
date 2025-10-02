@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hacer Pedido - Dulce Sabor</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+
+  
+  <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="index.html">🍰 Dulce Sabor</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="menu">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
+          <li class="nav-item"><a class="nav-link" href="productos.html">Catálogo</a></li>
+          <li class="nav-item"><a class="nav-link active" href="pedido.html">Hacer Pedido</a></li>
+          <li class="nav-item"><a class="nav-link" href="pedidos.html">Ver Pedidos</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container my-5">
+    <h1 class="text-center fw-bold mb-4">Hacer un Pedido</h1>
+    <div class="row">
+     
+      <div class="col-md-7">
+        <form id="formPedido" class="p-4 shadow-sm bg-light rounded">
+          
+          <div class="mb-3">
+            <label for="cliente" class="form-label">Cliente</label>
+            <input type="text" id="cliente" name="cliente" class="form-control" required>
+          </div>
+
+          <div class="mb-3">
+            <label for="telefono" class="form-label">Teléfono</label>
+            <input type="tel" id="telefono" name="telefono" class="form-control" pattern="[0-9]{9}" placeholder="Ej: 987654321" required>
+          </div>
+
+          <div class="mb-3">
+            <label for="producto" class="form-label">Producto</label>
+            <select id="producto" name="producto" class="form-select" required>
+              <option value="">Seleccione un producto</option>
+              <option value="Torta de Chocolate">Torta de Chocolate</option>
+              <option value="Torta de Fresas">Torta de Fresas</option>
+              <option value="Cheesecake">Torta de chocolate drip</option>
+              <option value="Torta de Fresas">Torta frutal</option>
+              <option value="Cheesecake">Torta de frutas con crema</option>
+              <option value="Torta de Fresas">Torta de manjar</option>
+              <option value="Cheesecake">Torta de manjar con crema</option>
+              <option value="Torta de Fresas">Torta de Fresas</option>
+              <option value="Cheesecake">Torta de chocolate con crema roja</option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Tamaño</label><br>
+            <div class="form-check form-check-inline">
+              <input type="radio" id="t12" name="tamano" value="0.5" class="form-check-input" required>
+              <label for="t12" class="form-check-label">½ kg</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input type="radio" id="t1" name="tamano" value="1" class="form-check-input">
+              <label for="t1" class="form-check-label">1 kg</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input type="radio" id="t2" name="tamano" value="2" class="form-check-input">
+              <label for="t2" class="form-check-label">2 kg</label>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="mensaje" class="form-label">Mensaje personalizado (máx. 40 caracteres)</label>
+            <input type="text" id="mensaje" name="mensaje" class="form-control" maxlength="40">
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Extras</label><br>
+            <div class="form-check form-check-inline">
+              <input type="checkbox" id="fresas" value="Fresas" class="form-check-input">
+              <label for="fresas" class="form-check-label">Fresas (+S/5)</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input type="checkbox" id="chocolate" value="Chocolate" class="form-check-input">
+              <label for="chocolate" class="form-check-label">Chocolate (+S/5)</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input type="checkbox" id="fondant" value="Fondant" class="form-check-input">
+              <label for="fondant" class="form-check-label">Fondant (+S/8)</label>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="fecha" class="form-label">Fecha de entrega</label>
+            <input type="date" id="fecha" name="fecha" class="form-control" required>
+          </div>
+
+          <div class="mb-3">
+            <label for="hora" class="form-label">Hora de entrega</label>
+            <input type="time" id="hora" name="hora" class="form-control" min="09:00" max="19:00" required>
+          </div>
+
+          <button type="button" class="btn btn-warning" onclick="calcularTotal()">Calcular Total</button>
+          <button type="submit" class="btn btn-success">Guardar Pedido</button>
+        </form>
+      </div>
+
+     
+      <div class="col-md-5">
+        <div class="p-4 bg-white shadow-sm rounded">
+          <h4 class="fw-bold text-center">Previsualización del Pedido</h4>
+          <div id="ticket" class="mt-3">
+            <p><em>Complete el formulario y presione "Calcular Total".</em></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+  <footer class="bg-light text-center p-4 mt-4">
+    <p class="mb-0">© 2025 Dulce Sabor - Todos los derechos reservados</p>
+  </footer>
+
+  
+  <script src="js/script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+ 
+  <script>
+    
+    window.addEventListener("DOMContentLoaded", () => {
+      const fechaInput = document.getElementById("fecha");
+      let hoy = new Date();
+      hoy.setDate(hoy.getDate() + 2); 
+      let minDate = hoy.toISOString().split("T")[0];
+      fechaInput.setAttribute("min", minDate);
+    });
+
+    document.getElementById("formPedido").addEventListener("submit", function(e) {
+      const fecha = new Date(document.getElementById("fecha").value);
+      const hora = document.getElementById("hora").value;
+
+      let hoy = new Date();
+      hoy.setHours(0,0,0,0);
+      hoy.setDate(hoy.getDate() + 2);
+
+      if (fecha < hoy) {
+        alert("La fecha de entrega debe ser al menos 2 días después de hoy.");
+        e.preventDefault();
+      }
+
+      if (hora < "09:00" || hora > "19:00") {
+        alert("La hora de entrega debe estar entre 09:00 y 19:00.");
+        e.preventDefault();
+      }
+    });
+    document.getElementById("formPedido").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const cliente = document.getElementById("cliente").value;
+    const telefono = document.getElementById("telefono").value;
+    const producto = document.getElementById("producto").value;
+    const tamano = document.querySelector('input[name="tamano"]:checked').nextElementSibling.innerText;
+    const mensaje = document.getElementById("mensaje").value;
+
+    let extras = [];
+    document.querySelectorAll('input[type="checkbox"]:checked').forEach(chk => {
+      extras.push(chk.value);
+    });
+
+    const fecha = document.getElementById("fecha").value;
+    const hora = document.getElementById("hora").value;
+
+    let total = 0;
+    if (producto === "Torta de Chocolate") total = 40;
+    if (producto === "Torta de Fresas") total = 45;
+    if (producto === "Cheesecake") total = 50;
+
+    if (tamano.includes("½")) total *= 0.5;
+    if (tamano.includes("2")) total *= 2;
+
+    extras.forEach(extra => {
+      if (extra === "Fresas" || extra === "Chocolate") total += 5;
+      if (extra === "Fondant") total += 8;
+    });
+
+    const pedido = {
+      cliente,
+      telefono,
+      producto,
+      tamano,
+      mensaje,
+      extras: extras.join(", ") || "Ninguno",
+      entrega: `${fecha} ${hora}`,
+      total: `S/ ${total}`,
+      estado: "Pendiente"
+    };
+
+    let pedidos = JSON.parse(localStorage.getItem("pedidos")) || [];
+    pedidos.push(pedido);
+    localStorage.setItem("pedidos", JSON.stringify(pedidos));
+
+    alert("Pedido guardado correctamente ✅");
+    document.getElementById("formPedido").reset();
+  });
+  </script>
+
+  <script>
+
+  function calcularTotal() {
+  const producto = document.getElementById("producto").value;
+  const tamanoRadio = document.querySelector('input[name="tamano"]:checked');
+  const extrasSeleccionados = document.querySelectorAll('input[type="checkbox"]:checked');
+
+  if (!producto || !tamanoRadio) {
+    alert("Seleccione producto y tamaño");
+    return;
+  }
+
+  let total = 0;
+  if (producto === "Torta de Chocolate") total = 70; // base 1kg
+  if (producto === "Torta de Fresas") total = 80;
+  if (producto === "Cheesecake") total = 90;
+
+  let tamano = tamanoRadio.value;
+  if (tamano == "0.5") total *= 0.5;
+  if (tamano == "2") total *= 2;
+
+
+
+  let extras = [];
+  extrasSeleccionados.forEach(e => {
+    extras.push(e.value);
+    if (e.value === "Fresas" || e.value === "Chocolate") total += 5;
+    if (e.value === "Fondant") total += 8;
+  });
+
+  // Mostrar en ticket
+  document.getElementById("ticket").innerHTML = `
+    <p><strong>Producto:</strong> ${producto}</p>
+    <p><strong>Tamaño:</strong> ${tamano} kg</p>
+    <p><strong>Extras:</strong> ${extras.length ? extras.join(", ") : "Ninguno"}</p>
+    <p class="fw-bold">Total: S/ ${total}</p>
+  `;
+
+  return total;
+}
+
+  </script>
+
+</body>
+</html>
+
